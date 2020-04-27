@@ -1,0 +1,81 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import storage, { TOKEN_KEY }from '../public/js/storage.js'
+
+// 异步加载
+const Home = () => import('@/components/Home')
+const Register = () => import('@/components/Register')
+const List = () => import('@/components/List')
+const Data = () => import('@/components/Data')
+const Edit = () => import('@/components/edit/Edit')
+const Fill = () => import('@/components/Fill')
+const Login = () => import('@/components/Login')
+
+Vue.use(Router)
+
+const routes = [
+  {
+    path: '/',
+    redirect: '/list',
+    
+  },
+  {
+    path: '/',
+    component: Home,
+    meta:{name:'问卷管理'},
+    children:[
+      {
+        path: 'list',
+        component: List,
+        
+        meta: {name:'问卷列表', requiresAuth: true }
+      },
+      
+      {
+        path: 'data',
+        name: 'data',
+        component: Data,
+        meta: {name:'查看数据', requiresAuth: true }
+      },
+      {
+        path: 'edit',
+        alias: ['add', 're-edit'],
+        name: 'edit',
+        component: Edit,
+        meta: {name:'添加数据', requiresAuth: true }
+      }
+    ]
+  },
+  
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/register',
+    component: Register
+  },
+  {
+    path: '/fill',
+    alias: '/view',
+    meta:{name:'分享问卷'},
+    component: Fill
+  },
+]
+
+const router = new Router({ routes })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!storage.get(TOKEN_KEY)) {
+      next({
+        path: '/',
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

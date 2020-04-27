@@ -1,0 +1,61 @@
+/*
+* @Author: NiceMing
+* @Date:   2018-03-10 13:46:51
+*/
+
+@import './_Edit.scss';
+.container {
+	width: 100%;
+	margin: 0rem auto;
+	color: #555;
+}
+.qu-wrap {
+	width: 1200px;
+	margin: 5rem auto;
+  header {
+		overflow: hidden;
+		font-size: 1.8rem;
+		font-weight: 700;
+		margin:0;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+  }
+}
+
+.btn {
+  width: 8rem;
+  height: 3rem;
+  margin: 0 auto;
+  line-height: 3rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+@media screen and (max-width: 640px) {
+	#app {
+		width: 100%;
+	}
+
+	.qu-wrap {
+		width: 100%;
+		margin: 0;
+		padding: 0 2rem;
+
+		header {
+			margin: 0;
+		}
+
+		.qu-content {
+			padding: 0;
+
+			.qu-item {
+				padding: 1rem;
+			}
+		}
+	}
+
+	textarea {
+		width: 80%;
+		border: 1px solid #999;
+	}
+}

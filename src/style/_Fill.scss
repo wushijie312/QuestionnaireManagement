@@ -1,0 +1,77 @@
+/*
+* @Author: NiceMing
+* @Date:   2018-03-10 13:46:51
+*/
+
+@import './_Edit.scss';
+.container {
+	width: 100%;
+	margin: 0rem auto;
+	color: #555;
+}
+.qu-wrap {
+  header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.8rem;
+    height: auto;
+    padding: 10px 0;
+  }
+}
+
+.btn {
+  width: 8rem;
+  height: 3rem;
+  margin: 0 auto;
+  line-height: 3rem;
+  cursor: pointer;
+  text-align: center;
+}
+.fill_top {
+	background: url(./img/fill.jpg) no-repeat
+	  top center;
+	background-size: 940px 144px;
+	padding-top: 120px;
+	width: 940px;
+	margin:0 auto 5rem;
+
+  }
+
+@media screen and (max-width: 1100px) {
+	#app {
+		width: 100%;
+	}
+	.fill_top {
+		background: url(/static/img/fill.636c6d8.jpg) center 25px no-repeat;
+    background-size: 100%;
+    padding-top: 15%;
+    width: 90%;
+	  }
+	.qu-wrap {
+		
+		padding: 0 2rem;
+
+		header {
+			margin: 0;
+		}
+
+		.qu-content {
+			padding: 0;
+
+			.qu-item {
+				padding: 1rem;
+			}
+		}
+	}
+}
+@media screen and (max-width: 450px) {
+
+	.fill_top {
+		background: url(/static/img/fill.636c6d8.jpg) center 25px no-repeat;
+    background-size: 100%;
+    padding-top: 70px;
+    width: 90%;
+	  }
+	
+}

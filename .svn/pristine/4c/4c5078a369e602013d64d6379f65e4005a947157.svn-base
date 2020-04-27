@@ -1,0 +1,65 @@
+<template>
+  <a-layout id="components-layout-demo-top-side-2" style="height:100vh;">
+    <a-layout-header class="header">
+      <Header @collapseHome="changeCollapse"/>
+    </a-layout-header>
+    <a-layout>
+      <a-layout-sider width="200" style="background: #001529;" v-model="collapsed">
+        <Nav/>
+      </a-layout-sider>
+      <a-layout style="padding: 0 24px 24px">
+        <a-breadcrumb style="margin: 16px 0" v-for="(item ,index) in breadList" :key="index">
+          <a-breadcrumb-item v-if="item.parent.path==''">{{item.parent.meta.name}}</a-breadcrumb-item>
+          <a-breadcrumb-item>{{item.meta.name}}</a-breadcrumb-item>
+        </a-breadcrumb>
+        <a-layout-content
+          :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px',overflow:'auto' }"
+        >
+          <router-view/>
+        </a-layout-content>
+      </a-layout>
+    </a-layout>
+  </a-layout>
+</template>
+<script>
+import { mapState, mapMutations, mapActions } from "vuex";
+const Nav = () => import("@/components/nav/Nav");
+const Header = () => import("@/components/Header");
+
+export default {
+  data() {
+    return {
+      collapsed: false,
+      breadList:[]
+    };
+  },
+  methods: {
+    changeCollapse(data) {
+      this.collapsed = data;
+    },
+    getPath() {
+       this.breadList=this.$route.matched.slice(-1);
+    }
+  },
+  created(){
+    this.getPath();
+  },
+  watch: {
+    $route: "getPath"
+  },
+  components: {
+    Nav,
+    Header
+  }
+};
+</script>
+
+<style>
+#components-layout-demo-top-side-2 .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 28px 16px 0;
+  float: left;
+}
+</style>

@@ -1,0 +1,1 @@
+webpackJsonp([7],{"FJN/":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",{staticClass:"container"},[this._v("\n    欢迎来到问卷管理！！\n")])},staticRenderFns:[]};var s=t("C7Lr")({name:"welcome"},r,!1,function(e){t("jEl2")},null,null);n.default=s.exports},jEl2:function(e,n){}});

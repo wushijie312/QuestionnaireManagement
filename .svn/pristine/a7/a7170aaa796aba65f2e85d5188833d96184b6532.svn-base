@@ -1,0 +1,87 @@
+<template>
+  <div class="header clearfix">
+    <Logo/>
+    <div class="fl" style="padding:0 10px;z-index:1001;position:relative;">
+      <a-icon
+        class="trigger"
+        :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+        @click="collapseState"
+      />
+    </div>
+
+    <a-row>
+      <a-dropdown class="fr" style="margin-right:20px;">
+        <a class="ant-dropdown-link" href="#">
+          <a-icon type="user" style="font-size:15px;color:#fff;"/>
+          {{loginData?loginData.Name:''}}
+          <a-icon type="caret-down" style="color:#fff;"/>
+        </a>
+        <a-menu slot="overlay">
+          <!-- <a-menu-item key="1">{{$t('porsons.information')}}</a-menu-item>
+        <a-menu-item key="2">{{$t('porsons.myOrder')}}</a-menu-item>
+          <a-menu-item key="3">{{$t('porsons.accountSafe')}}</a-menu-item>-->
+          <a-menu-item key="4" @click="headSignOut">退出</a-menu-item>
+        </a-menu>
+      </a-dropdown>
+    </a-row>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations } from "vuex";
+import { logout } from "../api";
+const Logo = () => import("@/components/logo/Logo");
+
+export default {
+  name: "Header",
+  components: {
+    Logo
+  },
+  computed: {
+    ...mapState({
+      loginData: state => state.login.loginData,
+      collapsed: state => state.home.collapsed
+    })
+  },
+  methods: {
+    headSignOut() {
+      window.open("https://yangguangqicai.com/", "_self");
+    },
+    ...mapMutations(["collapseState"])
+  }
+};
+</script>
+
+<style lang="scss">
+@import "../style/public.scss";
+
+.header {
+  height: 5rem;
+  padding: 0;
+  background-color: $orange;
+  color: #fff;
+
+  h2 {
+    margin: 0 5rem 0 6rem;
+    font-size: 1.8rem;
+    color: #fff;
+    &:before {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+      margin-right: 0.5rem;
+      content: "?";
+      color: $orange;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+}
+</style>

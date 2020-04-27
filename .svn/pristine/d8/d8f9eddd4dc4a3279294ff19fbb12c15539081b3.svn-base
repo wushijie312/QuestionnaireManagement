@@ -1,0 +1,39 @@
+<template>
+ 
+    <div v-if="!collapsed" class="logos fl"></div>
+  <div v-else class="logo_small fl"></div>
+
+</template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState({ collapsed: state => state.home.collapsed })
+  },
+  components: {},
+  methods: {
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.logos {
+  height: 40px;
+  background: url("./img/logo_s.png") center center no-repeat;
+  margin:10px 15px;
+  width: 170px;
+  background-size: auto 28px;
+}
+.logo_small {
+  height: 40px;
+  background: url("./img/logo_small.png") center center no-repeat;
+  margin: 16px 5px;
+  width: 70px;
+  background-size: auto 28px;
+}
+</style>

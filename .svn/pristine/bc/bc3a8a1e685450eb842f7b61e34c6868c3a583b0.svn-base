@@ -1,0 +1,140 @@
+<template>
+  <div class="container">
+    <div class="qu-wrap">
+      <header>
+        <router-link tag="span" to="/">&lt; 返回</router-link>
+        <p>{{ paperDataObj.title }}</p>
+      </header>
+      <div class="qu-content">
+        <div class="qu-item" v-for="(item, index) in questionList" :key="index">
+          <section class="qu-data">
+            <h3>
+              <span class="qu-num">{{`Q${index + 1}`}}</span>
+              <span class="qu-topic">{{ item.questionTitle }}</span>
+              <span class="qu-type">{{ item.questionType | transformQursiotnType}}</span>
+            </h3>
+            <a-list
+              itemLayout="horizontal"
+              v-if="item.questionType !== 3"
+              :dataSource="item.questionOption"
+            >
+              <a-list-item slot="renderItem" slot-scope="option, index">{{option}}</a-list-item>
+            </a-list>
+            <a-list
+              itemLayout="horizontal"
+              v-if="item.questionType == 3"
+              :dataSource="item.answerContent"
+            >
+              <a-list-item slot="renderItem" slot-scope="answer, index">{{answer}}</a-list-item>
+            </a-list>
+          </section>
+          <section class="ans-data"  v-if="item.questionType !== 3">
+            <h4 >数据占比</h4>
+            <a-list
+              itemLayout="horizontal"
+              v-if="item.questionType === 1"
+              :dataSource="item.questionOption"
+            >
+              <a-list-item slot="renderItem" slot-scope="option, optIndex"> <a-progress :percent="item.percentList[optIndex]"/></a-list-item>
+            </a-list>
+            <ve-pie v-if="item.questionType === 2" :data="chartData"></ve-pie>
+
+          </section>
+         
+        </div>
+      </div>
+      <footer>
+        <router-link tag="p" to="/" id="backBtn">返 回</router-link>
+      </footer>
+    </div>
+    <loader v-show="isLoading"/>
+  </div>
+</template>
+
+<script>
+import Loader from "./Loader";
+import { getPaperData } from "../api";
+import VePie from 'v-charts/lib/pie'
+export default {
+  name: "Data",
+
+  components: {
+    loader: Loader,
+    VePie
+  },
+
+  filters: {
+    transformQursiotnType(type) {
+      return type === 1 ? "(单选题)" : type === 2 ? "(多选题)" : "(文本题)";
+    }
+  },
+
+  data() {
+    return {
+      chartData:[],
+      paperDataObj: {},
+      questionList: [],
+      isLoading: false
+    };
+  },
+
+  created() {
+    this._getPaperData();
+  },
+
+  methods: {
+    
+    initEchart() {
+      let charts = document.querySelectorAll(".echart");
+      let multiSelectQuestions = this.questionList.filter(
+        item => item.questionType === 2
+      );
+
+      multiSelectQuestions.map((item, index) => {
+        let rows=[];
+        item.answerContent.map((value, i) => {
+          rows.push({ value, name: item.questionOption[i] });
+        });
+        this.chartData={columns:['name','value'],rows};
+      });
+    },
+
+    calculatePercent() {
+      this.questionList.map(item => {
+        if (item.questionType === 3) {
+          return;
+        }
+        let count = item.answerContent.reduce(
+          (accumulator, currentValue) => accumulator + currentValue
+        );
+        let percentList = item.answerContent.map(num => {
+          console.log(num, count);
+          let percent = Math.round((num / count) * 100);
+          return percent;
+        });
+        item.percentList = percentList;
+      });
+    },
+
+    _getPaperData() {
+      let data = { id: this.$route.query.id };
+      this.isLoading = true;
+      getPaperData(data).then(res => {
+        if (res.code === 0) {
+          this.paperDataObj = res.data;
+          this.questionList = res.data.questions;
+          this.isLoading = false;
+          this.calculatePercent();
+          this.$nextTick(() => {
+            this.initEchart();
+          });
+        }
+      });
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+@import "../style/_Data.scss";
+</style>
