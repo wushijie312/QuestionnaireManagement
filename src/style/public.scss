@@ -4,7 +4,7 @@
 */
 $white: #fff;
 $orange: #1890ff;
-
+$orange: #1890ff;
 $deep-orange: #1890ff;
 $light-orange: #fcf0e5;
 // $orange: #409eff;
@@ -26,7 +26,7 @@ $font-color: #303133;
 @mixin wrap-background {
 	border-radius: 5px;
 	background-color: $white;
-	box-shadow: 0px 1px 6px 0px rgba(205,220,245,1);
+	box-shadow: 0 0 5px #ccc;
 }
 
 @mixin add-btn {

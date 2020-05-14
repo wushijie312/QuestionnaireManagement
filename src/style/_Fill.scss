@@ -4,19 +4,21 @@
 */
 
 @import './_Edit.scss';
+
 .container {
 	width: 100%;
 	margin: 0rem auto;
 	color: #555;
 }
 .qu-wrap {
+	width: 1200px;
+	margin: 5rem auto;
   header {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.8rem;
-    height: auto;
-    padding: 10px 0;
+		overflow: hidden;
+		font-size: 1.8rem;
+		font-weight: 700;
+		text-overflow: ellipsis;
+		white-space: nowrap;
   }
 }
 
@@ -28,28 +30,15 @@
   cursor: pointer;
   text-align: center;
 }
-.fill_top {
-	background: url(./img/fill.jpg) no-repeat
-	  top center;
-	background-size: 940px 144px;
-	padding-top: 120px;
-	width: 940px;
-	margin:0 auto 5rem;
 
-  }
-
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 640px) {
 	#app {
 		width: 100%;
 	}
-	.fill_top {
-		background: url(/static/img/fill.636c6d8.jpg) center 25px no-repeat;
-    background-size: 100%;
-    padding-top: 15%;
-    width: 90%;
-	  }
+
 	.qu-wrap {
-		
+		width: 100%;
+		margin: 0;
 		padding: 0 2rem;
 
 		header {
@@ -64,14 +53,9 @@
 			}
 		}
 	}
-}
-@media screen and (max-width: 450px) {
 
-	.fill_top {
-		background: url(/static/img/fill.636c6d8.jpg) center 25px no-repeat;
-    background-size: 100%;
-    padding-top: 70px;
-    width: 90%;
-	  }
-	
+	textarea {
+		width: 80%;
+		border: 1px solid #999;
+	}
 }

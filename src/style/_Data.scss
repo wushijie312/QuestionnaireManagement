@@ -4,24 +4,24 @@
 */
 @import './public.scss';
 @import './_Edit.scss';
-h4{
-	line-height: 24px;
-	padding:5px 0;
-}
+
 .qu-content {
 	.qu-item {
 		display: flex;
 		border: 2px solid #ccc;
-		margin-bottom:10px;
+
 		&:hover {
 			background-color: #fff;
 		}
-		div:last-of-type{
-			height: auto;
-		}
+
 		.qu-data, .ans-data {
 			display: flex;
 			flex-direction: column;
+
+			& > * {
+				height: 2rem;
+			}
+
 			.echart {
 				height: 20rem;
 			}
