@@ -90,9 +90,10 @@ export default {
   components: {},
   methods: {
     headSignOut() {
-      window.open("https://yangguangqicai.com/", "_self");
-      storage.remove(TOKEN_KEY);
+     storage.remove(TOKEN_KEY);
       storage.remove(USERNAME_KEY);
+      localStorage.clear();
+     window.open("https://passport.yangguangqicai.com/home/LoginOut", "_self");
     },
     jumpUrl(url) {
       window.open(url, "_bank");

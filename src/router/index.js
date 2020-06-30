@@ -88,7 +88,7 @@ const routes = [
 ]
 
 const router = new Router({
-  mode: 'history',  
+  mode: 'hash',  
   routes })
 // router.beforeEach((to, from, next) => {
 //   if (to.matched.some(record => record.meta.requiresAuth)) {
